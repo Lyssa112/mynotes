@@ -66,10 +66,15 @@ npm run dev
 ```
 2. Run migrations
 ```bash
-cd backend
-npx dbmate up
+npm run migrate
 ```
 3. Rollback (if needed)
 ```bash
-npx dbmate down
+npm run rollback
 ```
+If needed, create new migration
+```bash
+npm run new-migration -- create_another_table
+```
+dbmate without npm/package.json script
+
