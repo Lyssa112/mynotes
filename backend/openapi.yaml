@@ -10,6 +10,7 @@ servers:
 paths:
   /notes:
     get:
+      tags: [Notes]
       summary: List all notes
       operationId: listNotes
       responses:
@@ -19,8 +20,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListNotesResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
     post:
+      tags: [Notes]
       summary: Create a new note
       operationId: createNote
       requestBody:
@@ -32,10 +40,28 @@ paths:
       responses:
         '201':
           description: Note created
+          headers:
+            Location:
+              description: URL of the newly created note
+              schema:
+                type: string
+                format: uri
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Note'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   /notes/{noteId}:
     parameters:
@@ -81,11 +107,22 @@ paths:
           description: Note deleted successfully
         '404':
           description: Note not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   /notes/{noteId}/archive:
     parameters:
       - $ref: '#/components/parameters/NoteIdParam'
     patch:
+      tags: [Notes]
       summary: Archive or unarchive a note
       operationId: setNoteArchivedState
       requestBody:
@@ -101,8 +138,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Note'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: Note not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
 components:
   parameters:
@@ -165,3 +218,19 @@ components:
         archived:
           type: boolean
           example: true
+
+    ErrorResponse:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+        code:
+          type: string
+          description: Machine-readable error code
+        details:
+          type: object
+          additionalProperties: true
+          description: Optional extra information
