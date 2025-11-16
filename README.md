@@ -82,6 +82,7 @@ npm run dev
 ```
 
 ### Project Structure
+```
 mynotes/
 ├── docker-compose.yml
 ├── backend/
@@ -94,3 +95,4 @@ mynotes/
 │ └── src/
 │ └── index.js
 └── README.md
+```
