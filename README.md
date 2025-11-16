@@ -1,5 +1,7 @@
 # MyNotes
 
+This project demonstrates a full-stack setup with Dockerized services for learning purposes.  
+
 This project uses:
 
 Node.js backend
@@ -10,7 +12,6 @@ PostgreSQL 18 (Dockerized)
 
 postgres.js for database access
 
-This project demonstrates a full-stack setup with Dockerized services for learning purposes.  
 
 ---
 
