@@ -1,6 +1,14 @@
 # MyNotes
 
-A simple notes application built with **Node.js**, **React**, and **PostgreSQL 18**, using **Docker** for easy setup.  
+This project uses:
+
+Node.js backend
+
+PostgreSQL 18 (Dockerized)
+
+Dbmate for SQL migrations
+
+postgres.js for database access
 
 This project demonstrates a full-stack setup with Dockerized services for learning purposes.  
 
@@ -9,9 +17,9 @@ This project demonstrates a full-stack setup with Dockerized services for learni
 ## Prerequisites
 
 - [Docker](https://www.docker.com/) (and `docker-compose`) installed  
-- Node.js (optional if you want to run backend or frontend outside Docker)
-- Git  
-
+- Node.js 20+
+- npm
+  
 ---
 
 ## Getting Started
@@ -27,7 +35,7 @@ Install - [dbmate](https://github.com/amacneil/dbmate) as npm
 
 ### Environment Variables
 
-Create a `.env` file inside the project root folder with example values
+Create a `.env` file inside the project backend folder with example values
 ```bash
 POSTGRES_USER=your_db_user
 POSTGRES_PASSWORD=your_db_password
@@ -39,54 +47,50 @@ Make sure the same values are used in docker-compose.yml if you reference them w
 This keeps credentials private and avoids committing sensitive info to Git.
 
 
-### Backend
-
-1. Backend
-   Runs on `http://localhost:3000`
-Start locally - TODO docker-compose
-```bash
-cd backend
-npm install
-npm run dev
-```
-2. Run migrations
-```bash
-npm run migrate
-```
-3. Rollback (if needed)
-```bash
-npm run rollback
-```
-If needed, create new migration
-```bash
-npm run new-migration -- create_another_table
-```
-
-dbmate without npm/package.json script
-Run migrations
-```bash
-cd backend
-npx dbmate up
-```
-
-Rollback (if needed)
-```bash
-npx dbmate down
-```
-
-
-
-### Frontend
-At `http://localhost:5173`
-Start locally - TODO docker-compose
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-### Starting
-1. Start Docker Services
+### Start Docker Services
 ```bash
 docker compose up -d
 ```
+
+### Running Migrations (dbmate)
+```bash
+cd backend
+npm run migrate
+```
+
+Or using Docker:
+```bash
+docker compose run --rm backend npx dbmate up
+```
+
+### Creating New Migrations
+Generate a new migration file
+```bash
+cd backend
+npx dbmate anyname
+```
+This will create a new file inside `backend/db/migrations/`
+
+Apply migrations
+`npm run migrate`
+
+### Start Backend Locally without Docker
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+### Project Structure
+mynotes/
+├── docker-compose.yml
+├── backend/
+│ ├── Dockerfile
+│ ├── package.json
+│ ├── .env
+│ ├── db/
+│ │ ├── migrations/
+│ │ └── schema.sql
+│ └── src/
+│ └── index.js
+└── README.md
