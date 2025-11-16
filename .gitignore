@@ -15,5 +15,5 @@ Thumbs.db
 # Logs
 *.log
 
-# JetBrains/WebStorm config (optional, personal settings)
+# JetBrains/WebStorm config
 .idea/
