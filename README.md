@@ -58,3 +58,18 @@ cd frontend
 npm install
 npm run dev
 ```
+
+### Starting
+1. Start Docker Services
+```bash
+   docker compose up -d
+```
+2. Run migrations
+```bash
+cd backend
+npx dbmate up
+```
+3. Rollback (if needed)
+```bash
+npx dbmate down
+```
