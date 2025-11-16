@@ -62,7 +62,7 @@ npm run dev
 ### Starting
 1. Start Docker Services
 ```bash
-   docker compose up -d
+docker compose up -d
 ```
 2. Run migrations
 ```bash
