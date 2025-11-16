@@ -32,7 +32,7 @@ Create a `.env` file inside the project root folder with example values
 POSTGRES_USER=your_db_user
 POSTGRES_PASSWORD=your_db_password
 POSTGRES_DB=your_db_name
-DATABASE_URL=postgres://your_db_user:your_db_password@db:5432/notesdb?sslmode=disable
+DATABASE_URL=postgres://your_db_user:your_db_password@db:5432/your_db_name?sslmode=disable
 ```
 Replace `your_db_user`, `your_db_password`, and `your_db_name` with your own secure values.
 Make sure the same values are used in docker-compose.yml if you reference them with `${...}`.
