@@ -73,6 +73,15 @@ paths:
         '404':
           description: Note not found
 
+    delete:
+      summary: Delete a note by ID
+      operationId: deleteNote
+      responses:
+        '204':
+          description: Note deleted successfully
+        '404':
+          description: Note not found
+
   /notes/{noteId}/archive:
     parameters:
       - $ref: '#/components/parameters/NoteIdParam'
