@@ -9,7 +9,8 @@ This project demonstrates a full-stack setup with Dockerized services for learni
 ## Prerequisites
 
 - [Docker](https://www.docker.com/) (and `docker-compose`) installed  
-- Node.js (optional if you want to run backend or frontend outside Docker)  
+- Node.js (optional if you want to run backend or frontend outside Docker)
+- [dbmate](https://github.com/amacneil/dbmate) as npm
 - Git  
 
 ---
