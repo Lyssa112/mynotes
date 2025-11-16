@@ -40,7 +40,7 @@ This keeps credentials private and avoids committing sensitive info to Git.
 ### Backend
 
 Runs on `http://localhost:3000`
-Start locally
+Start locally - TODO docker-compose
 ```bash
 cd backend
 npm install
@@ -50,7 +50,7 @@ npm run dev
 
 ### Frontend
 At `http://localhost:5173`
-Start locally
+Start locally - TODO docker-compose
 ```bash
 cd frontend
 npm install
