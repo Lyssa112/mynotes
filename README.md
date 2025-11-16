@@ -10,7 +10,6 @@ This project demonstrates a full-stack setup with Dockerized services for learni
 
 - [Docker](https://www.docker.com/) (and `docker-compose`) installed  
 - Node.js (optional if you want to run backend or frontend outside Docker)
-- [dbmate](https://github.com/amacneil/dbmate) as npm
 - Git  
 
 ---
@@ -24,6 +23,7 @@ git clone https://github.com/Lyssa112/mynotes.git
 cd mynotes
 ```
 
+Install - [dbmate](https://github.com/amacneil/dbmate) as npm
 
 ### Environment Variables
 
