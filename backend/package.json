@@ -7,16 +7,21 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "migrate": "dbmate up",
     "rollback": "dbmate down",
-    "new-migration": "dbmate new"
+    "new-migration": "dbmate new",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
-    "postgres": "^3.4.7"
+    "dotenv": "^17.2.3",
+    "postgres": "^3.4.7",
+    "swagger-ui-express": "^5.0.1",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
-    "dbmate": "^2.28.0"
+    "dbmate": "^2.28.0",
+    "nodemon": "^2.0.17"
   }
 }
