@@ -76,5 +76,16 @@ If needed, create new migration
 ```bash
 npm run new-migration -- create_another_table
 ```
-dbmate without npm/package.json script
 
+dbmate without npm/package.json script
+2. Run migrations
+```bash
+cd backend
+npx dbmate up
+```
+
+
+3. Rollback (if needed)
+```bash
+npx dbmate down
+```
