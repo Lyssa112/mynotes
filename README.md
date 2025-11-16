@@ -6,7 +6,7 @@ Node.js backend
 
 PostgreSQL 18 (Dockerized)
 
-Dbmate for SQL migrations
+[dbmate](https://github.com/amacneil/dbmate) for SQL migrations
 
 postgres.js for database access
 
@@ -30,8 +30,6 @@ Clone the repository:
 git clone https://github.com/Lyssa112/mynotes.git
 cd mynotes
 ```
-
-Install - [dbmate](https://github.com/amacneil/dbmate) as npm
 
 ### Environment Variables
 
