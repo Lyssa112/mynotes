@@ -5,7 +5,7 @@ info:
   description: API for managing notes.
 
 servers:
-  - url: http://localhost:3000
+  - url: http://localhost:3001
 
 paths:
   /notes:
@@ -186,9 +186,14 @@ components:
         - archived
 
     ListNotesResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/Note'
+      type: object
+      properties:
+        notes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+      required:
+        - notes
 
     NewNote:
       type: object
