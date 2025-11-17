@@ -1,54 +1,241 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
-  title: MyNotes API
-  description: API for managing notes
-  version: 1.0.0
+  title: Notes API
+  version: "1.0.0"
+  description: API for managing notes.
+
 servers:
-  - url: http://localhost:3000
+  - url: http://localhost:3001
+
 paths:
   /notes:
     get:
-      summary: Get all notes
+      tags: [Notes]
+      summary: List all notes
+      operationId: listNotes
       responses:
         '200':
           description: List of notes
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    title:
-                      type: string
-                    content:
-                      type: string
+                $ref: '#/components/schemas/ListNotesResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
     post:
+      tags: [Notes]
       summary: Create a new note
+      operationId: createNote
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                content:
-                  type: string
+              $ref: '#/components/schemas/NewNote'
       responses:
         '201':
           description: Note created
+          headers:
+            Location:
+              description: URL of the newly created note
+              schema:
+                type: string
+                format: uri
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  title:
-                    type: string
-                  content:
-                    type: string
+                $ref: '#/components/schemas/Note'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /notes/{noteId}:
+    parameters:
+      - $ref: '#/components/parameters/NoteIdParam'
+
+    get:
+      summary: Get a note by ID
+      operationId: getNote
+      responses:
+        '200':
+          description: Note retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+        '404':
+          description: Note not found
+
+    patch:
+      summary: Update a note by ID
+      operationId: updateNote
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateNote'
+      responses:
+        '200':
+          description: Note updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+        '404':
+          description: Note not found
+
+    delete:
+      summary: Delete a note by ID
+      operationId: deleteNote
+      responses:
+        '204':
+          description: Note deleted successfully
+        '404':
+          description: Note not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /notes/{noteId}/archive:
+    parameters:
+      - $ref: '#/components/parameters/NoteIdParam'
+    patch:
+      tags: [Notes]
+      summary: Archive or unarchive a note
+      operationId: setNoteArchivedState
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArchiveNoteRequest'
+      responses:
+        '200':
+          description: Note archived/unarchived successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Note not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  parameters:
+    NoteIdParam:
+      name: noteId
+      in: path
+      required: true
+      description: Unique identifier of the note.
+      schema:
+        type: integer
+
+  schemas:
+    Note:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        content:
+          type: string
+        archived:
+          type: boolean
+          default: false
+      required:
+        - id
+        - content
+        - archived
+
+    ListNotesResponse:
+      type: object
+      properties:
+        notes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+      required:
+        - notes
+
+    NewNote:
+      type: object
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+      required:
+        - content
+
+    UpdateNote:
+      type: object
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+      required:
+        - content
+
+    ArchiveNoteRequest:
+      type: object
+      required:
+        - archived
+      properties:
+        archived:
+          type: boolean
+          example: true
+
+    ErrorResponse:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+        code:
+          type: string
+          description: Machine-readable error code
+        details:
+          type: object
+          additionalProperties: true
+          description: Optional extra information
